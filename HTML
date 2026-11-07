@@ -1,0 +1,121 @@
+<div id="progresso"></div>
+
+<header class="navbar">
+  <a href="#inicio" class="logo">📱 CelularHist</a>
+  <button id="menu-btn" aria-label="Abrir menu">☰</button>
+  <nav id="menu">
+    <a href="#inicio">Início</a>
+    <a href="#sobre">Sobre</a>
+    <a href="#timeline">Linha do tempo</a>
+    <button id="tema" aria-label="Alternar tema">🌙</button>
+  </nav>
+</header>
+
+<section id="inicio" class="hero">
+  <h1>Evolução dos Celulares</h1>
+  <p>Uma viagem de 50 anos: do tijolão ao smartphone dobrável</p>
+  <a href="#timeline" class="cta">Explorar a história</a>
+  <div class="numeros">
+    <div><strong data-alvo="50">0</strong><span>anos de história</span></div>
+    <div><strong data-alvo="7">0</strong><span>marcos históricos</span></div>
+    <div><strong data-alvo="5">0</strong><span>décadas</span></div>
+  </div>
+</section>
+
+<section id="sobre" class="secao reveal">
+  <h2>Sobre o projeto</h2>
+  <p class="intro">Este blog conta como os celulares mudaram a forma como nos comunicamos, trabalhamos e nos divertimos.</p>
+  <div class="cards">
+    <div class="card-info"><span>📞</span><h3>Comunicação</h3><p>De simples ligações a videochamadas e mensagens instantâneas.</p></div>
+    <div class="card-info"><span>📷</span><h3>Câmeras</h3><p>Do aparelho sem foto às lentes múltiplas com inteligência artificial.</p></div>
+    <div class="card-info"><span>🔋</span><h3>Tecnologia</h3><p>Telas, processadores e baterias evoluindo a cada geração.</p></div>
+  </div>
+</section>
+
+<section id="timeline" class="secao">
+  <h2>Linha do tempo</h2>
+  <div class="controles">
+    <input type="text" id="busca" placeholder="🔍 Buscar por nome ou ano...">
+    <nav class="filtros">
+      <button class="filtro ativo" data-era="todos">Todos</button>
+      <button class="filtro" data-era="inicio">1970-1990</button>
+      <button class="filtro" data-era="anos90">Anos 90</button>
+      <button class="filtro" data-era="anos2000">Anos 2000</button>
+      <button class="filtro" data-era="atual">2010+</button>
+    </nav>
+  </div>
+
+  <main class="linha-do-tempo">
+    <article class="post reveal" data-era="inicio">
+      <span class="ano">1973</span>
+      <h3>Primeira ligação de um celular</h3>
+      <p>Martin Cooper, da Motorola, fez a primeira chamada com um protótipo portátil.</p>
+      <p class="extra">O DynaTAC 8000X chegou ao mercado em 1983. Pesava cerca de 1 kg, tinha bateria de poucos minutos de conversa e custava milhares de dólares.</p>
+      <button class="ler-mais">Ler mais</button>
+      <button class="curtir">❤️ <span>0</span></button>
+    </article>
+
+    <article class="post reveal" data-era="anos90">
+      <span class="ano">1992</span>
+      <h3>O primeiro SMS</h3>
+      <p>Foi enviada a primeira mensagem de texto, com os dizeres "Merry Christmas".</p>
+      <p class="extra">A partir daí, o SMS virou uma das formas de comunicação mais usadas do mundo.</p>
+      <button class="ler-mais">Ler mais</button>
+      <button class="curtir">❤️ <span>0</span></button>
+    </article>
+
+    <article class="post reveal" data-era="anos90">
+      <span class="ano">1994</span>
+      <h3>IBM Simon: o primeiro smartphone</h3>
+      <p>Reunia telefone, agenda, e-mail e tela sensível ao toque em um único aparelho.</p>
+      <p class="extra">Estava muito à frente do seu tempo, mas era caro e a bateria durava pouco.</p>
+      <button class="ler-mais">Ler mais</button>
+      <button class="curtir">❤️ <span>0</span></button>
+    </article>
+
+    <article class="post reveal" data-era="anos2000">
+      <span class="ano">2000</span>
+      <h3>Nokia 3310: o inquebrável</h3>
+      <p>Famoso pela resistência, bateria de longa duração e o clássico jogo da cobrinha.</p>
+      <p class="extra">Vendeu mais de 120 milhões de unidades e virou ícone da cultura pop.</p>
+      <button class="ler-mais">Ler mais</button>
+      <button class="curtir">❤️ <span>0</span></button>
+    </article>
+
+    <article class="post reveal" data-era="anos2000">
+      <span class="ano">2007</span>
+      <h3>Chega o iPhone</h3>
+      <p>A Apple apresentou um aparelho com tela multitoque e sem teclado físico.</p>
+      <p class="extra">Em 2008 surgiu a App Store, e o celular passou a ser uma plataforma de aplicativos.</p>
+      <button class="ler-mais">Ler mais</button>
+      <button class="curtir">❤️ <span>0</span></button>
+    </article>
+
+    <article class="post reveal" data-era="anos2000">
+      <span class="ano">2008</span>
+      <h3>Android entra em cena</h3>
+      <p>O HTC Dream foi o primeiro celular com o sistema Android, do Google.</p>
+      <p class="extra">Por ser um sistema aberto, o Android foi adotado por várias fabricantes e se tornou o mais usado do mundo.</p>
+      <button class="ler-mais">Ler mais</button>
+      <button class="curtir">❤️ <span>0</span></button>
+    </article>
+
+    <article class="post reveal" data-era="atual">
+      <span class="ano">2019</span>
+      <h3>Celulares dobráveis e 5G</h3>
+      <p>Surgem os primeiros smartphones com tela dobrável e a conexão 5G chega ao mercado.</p>
+      <p class="extra">As câmeras também evoluíram muito, com múltiplas lentes e fotografia computacional.</p>
+      <button class="ler-mais">Ler mais</button>
+      <button class="curtir">❤️ <span>0</span></button>
+    </article>
+
+    <p id="vazio" hidden>Nenhum resultado encontrado.</p>
+  </main>
+</section>
+
+<footer class="rodape">
+  <p>📱 CelularHist • Trabalho de faculdade</p>
+  <p class="pequeno">© <span id="ano-atual"></span> • Todos os direitos reservados</p>
+</footer>
+
+<button id="topo" aria-label="Voltar ao topo" hidden>↑</button>
