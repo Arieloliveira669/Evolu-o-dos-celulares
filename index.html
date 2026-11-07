@@ -3,25 +3,30 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Linha do tempo interativa sobre a evolução dos celulares, de 1973 até hoje.">
+  <meta name="theme-color" content="#2563eb">
   <title>Evolução dos Celulares</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<a href="#conteudo" class="pular">Pular para o conteúdo</a>
 <div id="progresso"></div>
 
 <header class="navbar">
   <a href="#inicio" class="logo">📱 CelularHist</a>
-  <button id="menu-btn" aria-label="Abrir menu">☰</button>
-  <nav id="menu">
+  <button id="menu-btn" aria-label="Abrir menu" aria-controls="menu" aria-expanded="false">☰</button>
+  <nav id="menu" aria-label="Menu principal">
     <a href="#inicio">Início</a>
     <a href="#sobre">Sobre</a>
     <a href="#timeline">Linha do tempo</a>
     <a href="#comparativo">Comparativo</a>
     <a href="#curiosidades">Curiosidades</a>
     <a href="#quiz">Quiz</a>
-    <button id="tema" aria-label="Alternar tema">🌙</button>
+    <button id="tema" aria-label="Ativar modo escuro" aria-pressed="false">🌙</button>
   </nav>
 </header>
+
+<main id="conteudo">
 
 <section id="inicio" class="hero">
   <h1>Evolução dos Celulares</h1>
@@ -38,28 +43,30 @@
   <h2>Sobre o projeto</h2>
   <p class="intro">Este blog conta como os celulares mudaram a forma como nos comunicamos, trabalhamos e nos divertimos.</p>
   <div class="cards">
-    <div class="card-info"><span>📞</span><h3>Comunicação</h3><p>De simples ligações a videochamadas e mensagens instantâneas.</p></div>
-    <div class="card-info"><span>📷</span><h3>Câmeras</h3><p>Do aparelho sem foto às lentes múltiplas com inteligência artificial.</p></div>
-    <div class="card-info"><span>🔋</span><h3>Tecnologia</h3><p>Telas, processadores e baterias evoluindo a cada geração.</p></div>
+    <div class="card-info"><span aria-hidden="true">📞</span><h3>Comunicação</h3><p>De simples ligações a videochamadas e mensagens instantâneas.</p></div>
+    <div class="card-info"><span aria-hidden="true">📷</span><h3>Câmeras</h3><p>Do aparelho sem foto às lentes múltiplas com inteligência artificial.</p></div>
+    <div class="card-info"><span aria-hidden="true">🔋</span><h3>Tecnologia</h3><p>Telas, processadores e baterias evoluindo a cada geração.</p></div>
   </div>
 </section>
 
 <section id="timeline" class="secao">
   <h2>Linha do tempo</h2>
   <div class="controles">
+    <label for="busca" class="sr-only">Buscar marcos por nome ou ano</label>
     <input type="text" id="busca" placeholder="🔍 Buscar por nome ou ano...">
-    <nav class="filtros">
+    <nav class="filtros" aria-label="Filtrar por época">
       <button class="filtro ativo" data-era="todos">Todos</button>
       <button class="filtro" data-era="inicio">1970-1990</button>
       <button class="filtro" data-era="anos90">Anos 90</button>
       <button class="filtro" data-era="anos2000">Anos 2000</button>
       <button class="filtro" data-era="atual">2010+</button>
     </nav>
-    <button id="expandir">Expandir todos</button>
+    <button id="expandir" aria-expanded="false">Expandir todos</button>
   </div>
 
-  <p id="contagem"></p>
-  <main class="linha-do-tempo" id="lista"></main>
+  <p id="contagem" aria-live="polite"></p>
+  <noscript><p class="nota">Ative o JavaScript para ver a linha do tempo e o quiz.</p></noscript>
+  <div class="linha-do-tempo" id="lista"></div>
   <p id="vazio" hidden>Nenhum resultado encontrado.</p>
 </section>
 
@@ -69,13 +76,14 @@
 
   <div class="tabela-wrap">
     <table class="tabela">
+      <caption class="sr-only">Comparativo de peso, tela e câmera entre aparelhos de 1983 a 2019</caption>
       <thead>
         <tr>
-          <th>Aparelho</th>
-          <th>Ano</th>
-          <th>Peso</th>
-          <th>Tela</th>
-          <th>Câmera</th>
+          <th scope="col">Aparelho</th>
+          <th scope="col">Ano</th>
+          <th scope="col">Peso</th>
+          <th scope="col">Tela</th>
+          <th scope="col">Câmera</th>
         </tr>
       </thead>
       <tbody>
@@ -91,7 +99,7 @@
   </div>
 
   <h3 class="subtitulo">Peso dos aparelhos</h3>
-  <div id="grafico" class="grafico">
+  <div id="grafico" class="grafico" role="img" aria-label="Gráfico de barras com o peso dos aparelhos: DynaTAC 8000X 794 gramas, Nokia 3310 133 gramas, Razr V3 95 gramas, iPhone de 2007 135 gramas, Galaxy Note 178 gramas e Galaxy Fold 263 gramas.">
     <div class="barra-linha" data-peso="794"><span class="barra-nome">DynaTAC 8000X</span><div class="barra-fundo"><div class="barra"></div></div><span class="barra-valor">794 g</span></div>
     <div class="barra-linha" data-peso="133"><span class="barra-nome">Nokia 3310</span><div class="barra-fundo"><div class="barra"></div></div><span class="barra-valor">133 g</span></div>
     <div class="barra-linha" data-peso="95"><span class="barra-nome">Razr V3</span><div class="barra-fundo"><div class="barra"></div></div><span class="barra-valor">95 g</span></div>
@@ -106,12 +114,12 @@
   <h2>Curiosidades</h2>
   <p class="intro">Fatos que talvez você não conheça.</p>
   <div class="cards">
-    <div class="card-info"><span>🚀</span><h3>Mais poder que a Apollo</h3><p>Um smartphone atual tem muito mais capacidade de processamento que o computador de bordo das missões Apollo.</p></div>
-    <div class="card-info"><span>😀</span><h3>Nascem os emojis</h3><p>Os primeiros emojis foram criados no Japão, em 1999, por Shigetaka Kurita.</p></div>
-    <div class="card-info"><span>🐍</span><h3>Cobrinha global</h3><p>O jogo Snake chegou a centenas de milhões de aparelhos da Nokia.</p></div>
-    <div class="card-info"><span>🔦</span><h3>Lanterna famosa</h3><p>O Nokia 1100, um dos mais vendidos da história, tinha lanterna embutida.</p></div>
-    <div class="card-info"><span>🇧🇷</span><h3>No Brasil</h3><p>Hoje existem mais linhas de celular do que habitantes no país.</p></div>
-    <div class="card-info"><span>📦</span><h3>Tudo em um</h3><p>O celular substituiu câmera, despertador, GPS, lanterna e até calculadora.</p></div>
+    <div class="card-info"><span aria-hidden="true">🚀</span><h3>Mais poder que a Apollo</h3><p>Um smartphone atual tem muito mais capacidade de processamento que o computador de bordo das missões Apollo.</p></div>
+    <div class="card-info"><span aria-hidden="true">😀</span><h3>Nascem os emojis</h3><p>Os primeiros emojis foram criados no Japão, em 1999, por Shigetaka Kurita.</p></div>
+    <div class="card-info"><span aria-hidden="true">🐍</span><h3>Cobrinha global</h3><p>O jogo Snake chegou a centenas de milhões de aparelhos da Nokia.</p></div>
+    <div class="card-info"><span aria-hidden="true">🔦</span><h3>Lanterna famosa</h3><p>O Nokia 1100, um dos mais vendidos da história, tinha lanterna embutida.</p></div>
+    <div class="card-info"><span aria-hidden="true">🇧🇷</span><h3>No Brasil</h3><p>Hoje existem mais linhas de celular do que habitantes no país.</p></div>
+    <div class="card-info"><span aria-hidden="true">📦</span><h3>Tudo em um</h3><p>O celular substituiu câmera, despertador, GPS, lanterna e até calculadora.</p></div>
   </div>
 </section>
 
@@ -125,19 +133,21 @@
       <span id="quiz-pontos">Pontos: 0</span>
     </div>
     <div class="quiz-barra"><div id="quiz-barra-interna"></div></div>
-    <h3 id="quiz-pergunta"></h3>
+    <h3 id="quiz-pergunta" tabindex="-1"></h3>
     <div id="quiz-opcoes" class="quiz-opcoes"></div>
-    <p id="quiz-feedback" class="quiz-feedback"></p>
+    <p id="quiz-feedback" class="quiz-feedback" aria-live="polite"></p>
     <button id="quiz-proxima" hidden>Próxima pergunta</button>
   </div>
 
   <div id="quiz-final" class="quiz-caixa" hidden>
     <h3>Fim do quiz! 🎉</h3>
-    <p id="quiz-resultado"></p>
+    <p id="quiz-resultado" tabindex="-1"></p>
     <p id="quiz-recorde" class="pequeno"></p>
     <button id="quiz-reiniciar">Jogar novamente</button>
   </div>
 </section>
+
+</main>
 
 <footer class="rodape">
   <p>📱 CelularHist • Evolução dos Celulares</p>
@@ -148,4 +158,4 @@
 
 <script src="script.js"></script>
 </body>
-  </html>
+</html>
