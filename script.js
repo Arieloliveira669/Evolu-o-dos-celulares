@@ -507,3 +507,93 @@ quizReiniciar.addEventListener("click", () => {
 });
 
 mostrarPergunta();
+/* ===== PARTE 5: ACESSIBILIDADE ===== */
+
+/* Menu */
+function sincronizarMenu() {
+  botaoMenu.setAttribute("aria-expanded", menu.classList.contains("aberto"));
+}
+
+botaoMenu.addEventListener("click", sincronizarMenu);
+menu.querySelectorAll("a").forEach((link) => {
+  link.addEventListener("click", sincronizarMenu);
+});
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && menu.classList.contains("aberto")) {
+    menu.classList.remove("aberto");
+    sincronizarMenu();
+    botaoMenu.focus();
+  }
+});
+
+/* Tema */
+function sincronizarTema() {
+  const escuro = document.body.classList.contains("escuro");
+  botaoTema.setAttribute("aria-pressed", escuro);
+  botaoTema.setAttribute("aria-label", escuro ? "Ativar modo claro" : "Ativar modo escuro");
+}
+
+sincronizarTema();
+botaoTema.addEventListener("click", sincronizarTema);
+
+/* Filtros */
+function sincronizarFiltros() {
+  filtros.forEach((b) => b.setAttribute("aria-pressed", b.classList.contains("ativo")));
+}
+
+sincronizarFiltros();
+filtros.forEach((b) => b.addEventListener("click", sincronizarFiltros));
+
+/* Cards: estado dos botões para leitores de tela */
+posts.forEach((post, i) => {
+  const extra = post.querySelector(".extra");
+  const ler = post.querySelector(".ler-mais");
+  const curtir = post.querySelector(".curtir");
+  const titulo = post.querySelector("h3").textContent;
+
+  extra.id = "detalhes-" + i;
+  ler.setAttribute("aria-controls", extra.id);
+
+  function atualizarAria() {
+    const aberto = extra.classList.contains("aberto");
+    ler.setAttribute("aria-expanded", aberto);
+    ler.setAttribute("aria-label", (aberto ? "Ler menos: " : "Ler mais: ") + titulo);
+
+    const curtido = curtir.classList.contains("curtido");
+    const total = curtir.querySelector("span").textContent;
+    curtir.setAttribute("aria-pressed", curtido);
+    curtir.setAttribute("aria-label", "Curtir " + titulo + ". Curtidas: " + total);
+  }
+
+  atualizarAria();
+  ler.addEventListener("click", atualizarAria);
+  curtir.addEventListener("click", atualizarAria);
+  botaoExpandir.addEventListener("click", atualizarAria);
+});
+
+/* Botão expandir todos */
+botaoExpandir.addEventListener("click", () => {
+  botaoExpandir.setAttribute("aria-expanded", botaoExpandir.textContent === "Recolher todos");
+});
+
+/* Quiz: foco acompanha o que muda na tela */
+quizOpcoes.addEventListener("click", (e) => {
+  if (e.target.classList.contains("opcao")) {
+    setTimeout(() => quizProxima.focus(), 50);
+  }
+});
+
+quizProxima.addEventListener("click", () => {
+  setTimeout(() => {
+    if (quizCaixa.hidden) {
+      quizResultado.focus();
+    } else {
+      quizPergunta.focus();
+    }
+  }, 50);
+});
+
+quizReiniciar.addEventListener("click", () => {
+  setTimeout(() => quizPergunta.focus(), 50);
+});
