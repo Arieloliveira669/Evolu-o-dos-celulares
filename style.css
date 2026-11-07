@@ -323,3 +323,64 @@ body {
   #menu.aberto { display: flex; }
   .hero h1 { font-size: 1.8rem; }
 }
+/* ===== PARTE 2 ===== */
+.ficha {
+  list-style: none;
+  padding: 0;
+  margin: 12px 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 8px;
+}
+
+.ficha li {
+  background: var(--fundo);
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  color: var(--texto);
+}
+
+.ficha strong {
+  display: block;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--destaque);
+}
+
+.curiosidade {
+  background: rgba(37, 99, 235, 0.1);
+  border-left: 4px solid var(--destaque);
+  padding: 10px 12px;
+  border-radius: 8px;
+  color: var(--texto);
+}
+
+.era-tag {
+  margin-left: 8px;
+  font-size: 0.8rem;
+  color: var(--suave);
+}
+
+#contagem {
+  text-align: center;
+  color: var(--suave);
+  margin: 0 0 20px;
+}
+
+#expandir {
+  margin-top: 14px;
+  padding: 8px 16px;
+  border: 2px solid var(--destaque2);
+  border-radius: 20px;
+  background: transparent;
+  color: var(--destaque2);
+  cursor: pointer;
+  font-weight: 500;
+}
+
+#expandir:hover {
+  background: var(--destaque2);
+  color: #fff;
+}
