@@ -336,3 +336,174 @@ botaoExpandir.addEventListener("click", () => {
 document.getElementById("ano-atual").textContent = new Date().getFullYear();
 
 atualizarLista();
+/* ===== PARTE 3 ===== */
+
+/* GRÁFICO DE PESO (barras animadas ao aparecer) */
+const grafico = document.getElementById("grafico");
+const linhasPeso = grafico.querySelectorAll(".barra-linha");
+const pesoMaximo = 800;
+
+const obsGrafico = new IntersectionObserver(
+  (itens) => {
+    itens.forEach((item) => {
+      if (item.isIntersecting) {
+        linhasPeso.forEach((linha) => {
+          const peso = Number(linha.dataset.peso);
+          linha.querySelector(".barra").style.width = (peso / pesoMaximo) * 100 + "%";
+        });
+        obsGrafico.disconnect();
+      }
+    });
+  },
+  { threshold: 0.3 }
+);
+
+obsGrafico.observe(grafico);
+
+/* QUIZ */
+const perguntas = [
+  {
+    pergunta: "Quem fez a primeira ligação de um celular, em 1973?",
+    opcoes: ["Steve Jobs", "Martin Cooper", "Neil Papworth", "Bill Gates"],
+    correta: 1,
+    explicacao: "Martin Cooper, da Motorola, ligou de uma rua de Nova York."
+  },
+  {
+    pergunta: "Qual aparelho é considerado o primeiro smartphone?",
+    opcoes: ["iPhone", "Nokia 3310", "IBM Simon", "Razr V3"],
+    correta: 2,
+    explicacao: "O IBM Simon, de 1994, tinha tela sensível ao toque, agenda e e-mail."
+  },
+  {
+    pergunta: "Em que ano foi enviado o primeiro SMS?",
+    opcoes: ["1985", "1992", "2000", "1975"],
+    correta: 1,
+    explicacao: "Em 1992, Neil Papworth enviou \"Merry Christmas\"."
+  },
+  {
+    pergunta: "Qual jogo veio instalado no Nokia 6110?",
+    opcoes: ["Tetris", "Pong", "Snake", "Mario"],
+    correta: 2,
+    explicacao: "O Snake (Cobrinha) fez sucesso em centenas de milhões de aparelhos."
+  },
+  {
+    pergunta: "Em que ano o iPhone original foi lançado?",
+    opcoes: ["2003", "2005", "2007", "2010"],
+    correta: 2,
+    explicacao: "Foi apresentado em janeiro de 2007 e lançado em junho do mesmo ano."
+  },
+  {
+    pergunta: "Qual foi o primeiro celular com Android?",
+    opcoes: ["HTC Dream", "Galaxy S", "Moto G", "Pixel"],
+    correta: 0,
+    explicacao: "O HTC Dream foi lançado em outubro de 2008."
+  },
+  {
+    pergunta: "Qual aparelho é apontado como um dos mais vendidos da história?",
+    opcoes: ["Nokia 1100", "DynaTAC 8000X", "IBM Simon", "Galaxy Fold"],
+    correta: 0,
+    explicacao: "Estima-se cerca de 250 milhões de unidades vendidas."
+  },
+  {
+    pergunta: "Em qual cidade a telefonia celular começou no Brasil, em 1990?",
+    opcoes: ["São Paulo", "Brasília", "Rio de Janeiro", "Salvador"],
+    correta: 2,
+    explicacao: "O serviço começou no Rio de Janeiro e depois se expandiu."
+  }
+];
+
+const quizCaixa = document.getElementById("quiz-caixa");
+const quizFinal = document.getElementById("quiz-final");
+const quizProgresso = document.getElementById("quiz-progresso");
+const quizPontos = document.getElementById("quiz-pontos");
+const quizBarra = document.getElementById("quiz-barra-interna");
+const quizPergunta = document.getElementById("quiz-pergunta");
+const quizOpcoes = document.getElementById("quiz-opcoes");
+const quizFeedback = document.getElementById("quiz-feedback");
+const quizProxima = document.getElementById("quiz-proxima");
+const quizResultado = document.getElementById("quiz-resultado");
+const quizRecorde = document.getElementById("quiz-recorde");
+const quizReiniciar = document.getElementById("quiz-reiniciar");
+
+let indice = 0;
+let pontos = 0;
+
+function mostrarPergunta() {
+  const atual = perguntas[indice];
+  quizProgresso.textContent = `Pergunta ${indice + 1} de ${perguntas.length}`;
+  quizPontos.textContent = `Pontos: ${pontos}`;
+  quizBarra.style.width = (indice / perguntas.length) * 100 + "%";
+  quizPergunta.textContent = atual.pergunta;
+  quizFeedback.textContent = "";
+  quizProxima.hidden = true;
+  quizOpcoes.innerHTML = "";
+
+  atual.opcoes.forEach((texto, i) => {
+    const botao = document.createElement("button");
+    botao.className = "opcao";
+    botao.textContent = texto;
+    botao.addEventListener("click", () => responder(i));
+    quizOpcoes.appendChild(botao);
+  });
+}
+
+function responder(escolhida) {
+  const atual = perguntas[indice];
+  const botoes = quizOpcoes.querySelectorAll(".opcao");
+
+  botoes.forEach((b, i) => {
+    b.disabled = true;
+    if (i === atual.correta) b.classList.add("certa");
+  });
+
+  if (escolhida === atual.correta) {
+    pontos++;
+    quizFeedback.textContent = "✅ Correto! " + atual.explicacao;
+  } else {
+    botoes[escolhida].classList.add("errada");
+    quizFeedback.textContent = "❌ Errou. " + atual.explicacao;
+  }
+
+  quizPontos.textContent = `Pontos: ${pontos}`;
+  quizProxima.textContent = indice === perguntas.length - 1 ? "Ver resultado" : "Próxima pergunta";
+  quizProxima.hidden = false;
+}
+
+function mostrarResultado() {
+  quizCaixa.hidden = true;
+  quizFinal.hidden = false;
+
+  let mensagem = "Que tal rever a linha do tempo e tentar de novo?";
+  if (pontos >= 7) mensagem = "Excelente! Você manja de celulares! 🏆";
+  else if (pontos >= 4) mensagem = "Muito bem! Quase lá! 👏";
+
+  quizResultado.textContent = `Você acertou ${pontos} de ${perguntas.length}. ${mensagem}`;
+
+  let recorde = pontos;
+  try {
+    const salvo = Number(localStorage.getItem("recordeQuiz")) || 0;
+    recorde = Math.max(salvo, pontos);
+    localStorage.setItem("recordeQuiz", recorde);
+  } catch (e) {}
+
+  quizRecorde.textContent = `Seu recorde: ${recorde} de ${perguntas.length}`;
+}
+
+quizProxima.addEventListener("click", () => {
+  indice++;
+  if (indice < perguntas.length) {
+    mostrarPergunta();
+  } else {
+    mostrarResultado();
+  }
+});
+
+quizReiniciar.addEventListener("click", () => {
+  indice = 0;
+  pontos = 0;
+  quizFinal.hidden = true;
+  quizCaixa.hidden = false;
+  mostrarPergunta();
+});
+
+mostrarPergunta();
